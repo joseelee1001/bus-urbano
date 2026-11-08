@@ -78,6 +78,10 @@ h3{
     flex-shrink: 0;
 }
 
+.logo a{
+    text-decoration: none;
+}
+
 .logo-icono {
     width: 4rem;
     height: 4rem;
