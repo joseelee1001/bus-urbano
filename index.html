@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preload" href="css/style.css" as="style">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image" href="img/logo.svg">
+    <title>Bus Urbano</title>
+
+</head>
+    
+<body>
+    <header class="navbar">
+        <div class="contenedor">
+            <!-- Logo y nombre -->
+            <div class="logo">
+                <div class="logo-icono">🚌</div>
+
+                <div class="logo-texto">
+                    <h2>Bus Urbano</h2>
+                    <span>Transporte urbano</span>
+                </div>
+            </div>
+            <!-- Botón para abrir/cerrar el menú móvil -->
+            <button
+                class="menu-toggle"
+                id="menuToggle"
+                aria-label="Abrir menú de navegación"
+                aria-expanded="false"
+                aria-controls="menuPrincipal"
+                type="button"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <!-- Menú de navegación -->
+            <nav class="menu" id="menuPrincipal">
+                <a href="#inicio" class="activo">Inicio</a>
+                <a href="#registro">Registro</a>
+                <a href="#mis-datos">Mis datos</a>
+                <a href="#boleto">Boleto</a>
+                <a href="#encuesta">Encuesta</a>
+                <a href="#administrador" class="admin">Administrador</a>
+            </nav>
+        </div>
+    </header>
+    <div id="mensajeBienvenidaAdmin" class="mensaje-bienvenida" hidden>
+        ¡Bienvenido, administrador!
+    </div>
+
+    <main>
+        
+        <!--Vista Principal-->
+        <div id="vista-inicio" class="vista activa">
+            <div class="hero">
+                <div class="hero__fila contenedor">
+                    <div class="hero__texto">
+                        <p class="etiqueta">Transporte Urbano • Ciudad de Guatemala</p>
+                        <h1>Viaja facil y seguro</h1>
+                        <p>Tu solución de transporte urbano confiable y eficiente. Explora nuestras rutas, registra tus datos y disfruta de un viaje cómodo y seguro.</p>
+                        <div class="hero__acciones">
+                            <a href="#registro">Registrarme como viajero</a>
+                            <a href="#tarifas">Ver tarifas</a>
+                        </div>
+                    </div>
+                    <img src="img/estacion.svg" alt="Imagen de un bus urbano" class="hero__imagen">
+                </div>
+            </div>
+            <div class="contenedor-norm">
+                <h2 class="titulo-seccion">Nuestros Servicios</h2>
+                <div class="servicios">
+                    
+                    <div class="tarjeta-servicio">
+                        <h3>🚌6 Rutas Urbanas</h3>
+                        <p>Conexiones diarias desde Estacion Central hacia los principales puntos de la ciudad.</p>
+                    </div>
+                    <div class="tarjeta-servicio">
+                        <h3>🎫Boleto digital</h3>
+                        <p>Registrate, genera tu boleto y consultalo cuando lo requieras.</p>
+                    </div>
+                    <div class="tarjeta-servicio">
+                        <h3>♿Accesibilidad</h3>
+                        <p>Rampas, asientos preferenciales y atencion prioritaria.</p>
+                    </div>
+                    <div class="tarjeta-servicio">
+                        <h3>🛡️Seguridad</h3>
+                        <p>Vigilancia en andenes y unidades con monitoreo.</p>
+                    </div>
+                    <div class="tarjeta-servicio">
+                        <h3>📌Informacion clara</h3>
+                        <p>Horarios, andenes y paradas visibles para el viajero.</p>
+                    </div>
+                    <div class="tarjeta-servicio">
+                        <h3>💬Tu opinion cuenta</h3>
+                        <p>Al finalizar tu viaje puedes evaluar el servicio.</p>
+                    </div>
+                </div>
+                
+            </div>
+            <section id="tarifas">
+                <div class="contenedor-norm seccion-tarfias">
+                    <h2 class="titulo-seccion">Tarifas</h2>
+                    <p class="descripcion-tarifas">Precios por viaje: </p>
+                    <div class="tarjetas-tarifas" id="tarjetasTarifas">
+
+                    </div>
+                </div>
+            </section>
+            
+            <div class="contenedor-norm">
+                <h2 class="titulo-seccion">Rutas y horarios</h2>
+                <div class="tabla-envoltorio">
+                    <table class="tabla-rutas">
+                        <thead>
+                            <tr>
+                                <th>Ruta</th>
+                                <th>Destino</th>
+                                <th>Anden</th>
+                                <th>Duracion</th>
+                                <th>Primera salida</th>
+                                <th>Ultima salida</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaRutas"></tbody>
+                    </table>
+                </div>
+                <div class="contenedor-norm img">
+                    <img src="img/mapa-rutas.svg" alt="rutas">
+                    <p>Mapa esquematico de las rutas.</p>
+                </div>
+            </div>
+            
+        </div>
+        
+        <!-- VISTA REGISTRO -->
+        <section id="vista-registro" class="vista">
+            <div class="contenedor-form">
+                <div class="contenedor-norm">
+                    <h2 class="titulo-seccion">Registro del viajero</h2>
+                    <p class="registro-descripcion">
+                        Complete con sus datos y elija su tarifa. <span class="obligatorio">*</span> Campos obligatorios.
+                    </p>
+                    <form id="formRegistro" class="form-registro">
+                        <div class="campos-grid">
+                            <div class="campo">
+                                <label for="nombres">Nombres <span class="obligatorio">*</span></label>
+                                <input type="text" id="nombres" name="nombres" autocomplete="given-name" required>
+                            </div>
+                            <div class="campo">
+                                <label for="apellidos">Apellidos <span class="obligatorio">*</span></label>
+                                <input type="text" id="apellidos" name="apellidos" autocomplete="family-name" required>
+                            </div>
+                            <div class="campo">
+                                <label for="edad">Edad <span class="obligatorio">*</span></label>
+                                <input type="number" id="edad" name="edad" min="1" max="120" required>
+                            </div>
+                            <div class="campo">
+                                <label for="telefono">Teléfono (8 dígitos) <span class="obligatorio">*</span></label>
+                                <input type="tel" id="telefono" name="telefono" pattern="[0-9]{8}" maxlength="8" inputmode="numeric" placeholder="55512345" autocomplete="tel" required>
+                            </div>
+                            <div class="campo campo-completo">
+                                <label for="correo">Correo electrónico <span class="obligatorio">*</span></label>
+                                <input type="email" id="correo" name="correo" placeholder="usuario@correo.com" autocomplete="email" required>
+                            </div>
+                        </div>
+
+                        <fieldset class="campo-tarifas">
+                            <legend>Tipo de tarifa <span class="obligatorio">*</span></legend>
+                            <div class="tarifas-registro" id="opcionesTarifas">
+                                <!-- Las opciones se generan usando TARIFAS en js/test.js -->
+                            </div>
+                            <p id="mensajeTarifaEdad" class="mensaje-validacion-tarifa"></p>
+                        </fieldset>
+
+                        <div class="campos-grid campos-viaje">
+                            <div class="campo">
+                                <label for="cantidad">Cantidad de pasajeros</label>
+                                <input
+                                    type="number"
+                                    id="cantidad"
+                                    name="cantidad"
+                                    min="1"
+                                    max="10"
+                                    value="1"
+                                    required
+                                >
+                            </div>
+                            <div class="campo">
+                                <label for="ruta">Ruta <span class="obligatorio">*</span></label>
+                                <select id="ruta" name="ruta" required>
+                                    <!-- Las opciones se generan usando RUTAS en js/test.js -->
+                                </select>
+                            </div>
+                            <div class="campo">
+                                <label for="fecha">Fecha de viaje <span class="obligatorio">*</span></label>
+                                <input type="date" id="fecha" name="fecha" required>
+                            </div>
+                            <div class="campo campo-completo">
+                                <label for="hora">Hora de salida <span class="obligatorio">*</span></label>
+                                <select id="hora" name="hora" required>
+                                    <option value="05:00">05:00</option>
+                                    <option value="06:00">06:00</option>
+                                    <option value="07:00">07:00</option>
+                                    <option value="08:00">08:00</option>
+                                    <option value="09:00">09:00</option>
+                                    <option value="10:00">10:00</option>
+                                    <option value="11:00">11:00</option>
+                                    <option value="12:00">12:00</option>
+                                    <option value="13:15" selected>13:15</option>
+                                    <option value="14:00">14:00</option>
+                                    <option value="15:00">15:00</option>
+                                    <option value="16:00">16:00</option>
+                                    <option value="17:00">17:00</option>
+                                    <option value="18:00">18:00</option>
+                                    <option value="19:00">19:00</option>
+                                    <option value="20:00">20:00</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="aceptar-normas">
+                            <input type="checkbox" id="aceptaNormas" name="aceptaNormas" required>
+                            <label for="aceptaNormas">Acepto las <a href="#normas" id="enlaceNormas">normas del viajero</a> <span class="obligatorio">*</span></label>
+                        </div>
+
+                        <div class="registro-pie">
+                            <p>Total a pagar: <strong id="totalPagar">Q5.00</strong></p>
+                            <div class="acciones-registro">
+                                <button type="reset" class="boton-limpiar">Limpiar</button>
+                                <button type="submit" class="boton-registrar">Registrar y continuar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+        </section>
+
+
+        <!-- VISTA MIS DATOS -->
+        <section id="vista-mis-datos" class="vista">
+            <div class="contenedor-norm">
+                <h2 class="titulo-seccion">Datos de registro</h2>
+                <p>
+                    Aqui podra consultar su informacion como viajero.
+                </p>
+                <div class="tarjeta-servicio">
+                    <div class="estado-registro" id="estadoRegistro">
+                        Sin registro
+                    </div>
+                    <div class="campos-grid">
+                        <div class="dato-registro">
+                            <span>Nombre completo</span>
+                            <p id="datoNombre">Sin registrar</p>
+                        </div>
+
+                        <div class="dato-registro">
+                            <span>Edad</span>
+                            <p id="datoEdad">-</p>
+                        </div>
+
+                        <div class="dato-registro">
+                            <span>Teléfono</span>
+                            <p id="datoTelefono">-</p>
+                        </div>
+
+                        <div class="dato-registro">
+                            <span>Correo</span>
+                            <p id="datoCorreo">-</p>
+                        </div>
+
+                        <div class="dato-registro">
+                            <span>Tarifa</span>
+                            <p id="datoTarifa">-</p>
+                        </div>
+
+                        <div class="dato-registro">
+                            <span>Ruta</span>
+                            <p id="datoRuta">-</p>
+                        </div>
+
+                        <div class="dato-registro">
+                            <span>Fecha de viaje</span>
+                            <p id="datoFecha">-</p>
+                        </div>
+
+                        <div class="dato-registro">
+                            <span>Hora de salida</span>
+                            <p id="datoHora">-</p>
+                        </div>
+
+                        <div class="dato-registro">
+                            <span>Cantidad de pasajeros</span>
+                            <p id="datoCantidad">-</p>
+                        </div>
+
+                        <div class="dato-registro">
+                            <span>Total pagado</span>
+                            <p id="datoTotal">-</p>
+                        </div>
+
+                        <div class="dato-registro">
+                            <span>Código de boleto</span>
+                            <p id="datoCodigo">-</p>
+                        </div>
+
+                        <div class="dato-registro">
+                            <span>Registrado el</span>
+                            <p id="datoRegistro">-</p>
+                        </div>
+                    </div>
+                    <div class="acciones-datos">
+                        <button type="button" id="nuevoRegistro" class="boton-limpiar">
+                            Nuevo registro
+                        </button>
+
+                        <button type="button" id="accederBoleto" class="boton-registrar">
+                            Acceder a mi boleto →
+                        </button>
+                    </div>
+                </div>
+        </section>
+
+
+        <!-- VISTA BOLETO -->
+        <section id="vista-boleto" class="vista">
+            <div class="contenedor-norm">
+                <h2 class="titulo-seccion">Mi boleto</h2>
+                <div class="tarjeta-servicio">
+                    <!-- Mensaje cuando todavía no hay registro -->
+                    <div id="boletoSinRegistro" class="boleto-vacio" hidden>
+                        <h3>No tienes ningún boleto registrado</h3>
+                        <p>Primero debes completar tu registro para generar un boleto.</p>
+                        <a href="#registro" class="boton-registrar">
+                            Realizar registro
+                        </a>
+                    </div>
+
+                    <!-- Boleto generado -->
+                    <div id="boletoContenido" class="boleto-tarjeta campos-grid" hidden>
+                        
+                        <!-- Información del viaje -->
+                        <div class="boleto-informacion">
+
+                            <div class="boleto-encabezado">
+                                <h3>🎫 Boleto de viaje</h3>
+                                <span class="boleto-estado">Válido</span>
+                            </div>
+
+                            <!-- Salida y llegada -->
+                            <div class="boleto-trayecto">
+
+                                <div>
+                                    <span>Salida</span>
+                                    <strong id="boletoSalida">--:--</strong>
+                                    <b>Estación Central</b>
+                                </div>
+
+                                <div class="trayecto-flecha">➜</div>
+
+                                <div class="trayecto-llegada">
+                                    <span>Llegada</span>
+                                    <strong id="boletoLlegada">--:--</strong>
+                                    <b id="boletoDestino">Destino</b>
+                                </div>
+
+                            </div>
+
+                            <!-- Datos del pasajero y viaje -->
+                            <div class="boleto-detalles">
+
+                                <div class="detalle-boleto">
+                                    <span>Pasajero</span>
+                                    <strong id="boletoPasajero">-</strong>
+                                </div>
+
+                                <div class="detalle-boleto">
+                                    <span>Ruta</span>
+                                    <strong id="boletoRuta">-</strong>
+                                </div>
+
+                                <div class="detalle-boleto">
+                                    <span>Fecha</span>
+                                    <strong id="boletoFecha">-</strong>
+                                </div>
+
+                                <div class="detalle-boleto">
+                                    <span>Andén</span>
+                                    <strong id="boletoAnden">-</strong>
+                                </div>
+
+                                <div class="detalle-boleto">
+                                    <span>Pasajeros</span>
+                                    <strong id="boletoCantidad">-</strong>
+                                </div>
+
+                                <div class="detalle-boleto">
+                                    <span>Tarifa</span>
+                                    <strong id="boletoTarifa">-</strong>
+                                </div>
+
+                                <div class="detalle-boleto">
+                                    <span>Duración</span>
+                                    <strong id="boletoDuracion">-</strong>
+                                </div>
+
+                                <div class="detalle-boleto">
+                                    <span>Total pagado</span>
+                                    <strong id="boletoTotal">-</strong>
+                                </div>
+
+                                <div class="detalle-boleto">
+                                    <span>Código de boleto</span>
+                                    <strong id="boletoCodigo">-</strong>
+                                </div>
+
+                            </div>
+
+                            <!-- Recorrido -->
+                            <div class="boleto-recorrido">
+                                <span>Recorrido</span>
+
+                                <div class="recorrido-paradas">
+                                    <span>Estación Central</span>
+                                    <span id="boletoParadaFinal">Destino</span>
+                                </div>
+                            </div>
+
+                            <!-- Enlaces inferiores -->
+                            <div class="boleto-enlaces">
+                                <a href="#inicio">📍 Ver información de rutas</a>
+                                <a href="#tarifas">💵 Ver tarifas</a>
+                            </div>
+                            
+                            <div class="boleto-acciones">
+                                <button
+                                    type="button"
+                                    id="imprimirBoleto"
+                                    class="boton-registrar"
+                                >
+                                    🖨 Imprimir boleto
+                                </button>
+                                <button type="button" id="evaluarExperiencia" class="boton-registrar">
+                                    ⭐ Evaluar experiencia
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Panel del código -->
+                        <div class="boleto-codigo">
+
+                            <div class="boleto-autobus">🚌</div>
+
+                            <div class="codigo-barras" aria-label="Representación visual del código de boleto"></div>
+
+                            <strong id="boletoCodigoLateral">BUS-XXXXXXXX</strong>
+
+                            <p>Presente este código al abordar</p>
+
+                        </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- VISTA ENCUESTA -->
+        <section id="vista-encuesta" class="vista">
+            <div class="contenedor-norm">
+                <h2 class="titulo-seccion">Evaluacion de satisfacción</h2>
+                <p>Su opinion es muy importante. Responda las siguientes preguntas.</p>
+                <div class="tarjeta-servicio">
+                    <!-- FORMULARIO DE EVALUACIÓN -->
+                    <div id="formularioEncuesta">
+
+                        <h2 class="titulo-seccion">
+                            Evaluación de satisfacción
+                        </h2>
+
+                        <p class="descripcion-encuesta">
+                            Responda las siguientes preguntas.
+                            Sus respuestas serán utilizadas para evaluar
+                            la calidad del servicio.
+                        </p>
+
+                        <form id="formEncuesta" class="tarjeta-encuesta">
+
+                            <!-- PREGUNTA 1 -->
+                            <div class="pregunta">
+                                <h3>1. ¿Qué tan satisfecho está con el servicio de la estación en general?</h3>
+
+                                <div class="opciones-encuesta">
+
+                                    <label>
+                                        <input type="radio" name="satisfaccion" value="10" required>
+                                        Muy satisfecho
+                                    </label>
+
+                                    <label>
+                                        <input type="radio" name="satisfaccion" value="8">
+                                        Satisfecho
+                                    </label>
+
+                                    <label>
+                                        <input type="radio" name="satisfaccion" value="6">
+                                        Neutral
+                                    </label>
+
+                                    <label>
+                                        <input type="radio" name="satisfaccion" value="4">
+                                        Insatisfecho
+                                    </label>
+
+                                    <label>
+                                        <input type="radio" name="satisfaccion" value="2">
+                                        Muy insatisfecho
+                                    </label>
+
+                                </div>
+                            </div>
+
+                            <!-- PREGUNTA 2 -->
+                            <div class="pregunta">
+                                <h3>2. ¿Cómo calificaría la atención del personal?</h3>
+
+                                <select name="atencion" required>
+                                    <option value="">Seleccione...</option>
+                                    <option value="10">Excelente</option>
+                                    <option value="7.5">Buena</option>
+                                    <option value="5">Regular</option>
+                                    <option value="2.5">Mala</option>
+                                </select>
+                            </div>
+
+                            <!-- PREGUNTA 3 -->
+                            <div class="pregunta">
+                                <h3>3. ¿Qué aspectos le gustaron? (puede marcar varios)</h3>
+
+                                <div class="opciones-encuesta">
+
+                                    <label>
+                                        <input type="checkbox" name="aspectos" value="Puntualidad">
+                                        Puntualidad
+                                    </label>
+
+                                    <label>
+                                        <input type="checkbox" name="aspectos" value="Limpieza">
+                                        Limpieza
+                                    </label>
+
+                                    <label>
+                                        <input type="checkbox" name="aspectos" value="Seguridad">
+                                        Seguridad
+                                    </label>
+
+                                    <label>
+                                        <input type="checkbox" name="aspectos" value="Información clara">
+                                        Información clara
+                                    </label>
+
+                                    <label>
+                                        <input type="checkbox" name="aspectos" value="Precio justo">
+                                        Precio justo
+                                    </label>
+
+                                </div>
+                            </div>
+
+                            <!-- PREGUNTA 4 -->
+                            <div class="pregunta">
+                                <h3>4. Del 1 al 10, ¿qué tan limpia estaba la estación?</h3>
+
+                                <div class="rango-encuesta">
+
+                                    <span>1</span>
+
+                                    <input
+                                        type="range"
+                                        name="limpieza"
+                                        id="calificacionLimpieza"
+                                        min="1"
+                                        max="10"
+                                        value="5"
+                                    >
+
+                                    <span>10</span>
+
+                                    <strong id="valorLimpieza">5</strong>
+
+                                </div>
+                            </div>
+
+                            <!-- PREGUNTA 5 -->
+                            <div class="pregunta">
+                                <h3>5. ¿Qué tan fácil fue registrarse y obtener su boleto?</h3>
+
+                                <div class="opciones-encuesta">
+
+                                    <label>
+                                        <input type="radio" name="facilidad" value="10" required>
+                                        Muy fácil
+                                    </label>
+
+                                    <label>
+                                        <input type="radio" name="facilidad" value="8">
+                                        Fácil
+                                    </label>
+
+                                    <label>
+                                        <input type="radio" name="facilidad" value="5">
+                                        Complicado
+                                    </label>
+
+                                    <label>
+                                        <input type="radio" name="facilidad" value="2.5">
+                                        Muy complicado
+                                    </label>
+
+                                </div>
+                            </div>
+
+                            <!-- PREGUNTA 6 -->
+                            <div class="pregunta">
+                                <h3>6. ¿Recomendaría esta estación a otras personas?</h3>
+
+                                <div class="opciones-encuesta opciones-vertical">
+
+                                    <label>
+                                        <input type="radio" name="recomendacion" value="10" required>
+                                        Sí
+                                    </label>
+
+                                    <label>
+                                        <input type="radio" name="recomendacion" value="5">
+                                        Tal vez
+                                    </label>
+
+                                    <label>
+                                        <input type="radio" name="recomendacion" value="0">
+                                        No
+                                    </label>
+
+                                </div>
+                            </div>
+
+                            <!-- PREGUNTA 7 -->
+                            <div class="pregunta">
+                                <h3>7. ¿Con qué frecuencia usa el bus urbano? (no puntúa)</h3>
+
+                                <select name="frecuencia">
+                                    <option value="">Seleccione...</option>
+                                    <option value="Diariamente">Diariamente</option>
+                                    <option value="Varias veces por semana">Varias veces por semana</option>
+                                    <option value="Una vez por semana">Una vez por semana</option>
+                                    <option value="Ocasionalmente">Ocasionalmente</option>
+                                    <option value="Primera vez">Primera vez</option>
+                                </select>
+                            </div>
+
+                            <!-- PREGUNTA 8 -->
+                            <div class="pregunta">
+                                <h3>8. Comentarios o sugerencias (opcional)</h3>
+
+                                <textarea
+                                    name="comentarios"
+                                    rows="4"
+                                    placeholder="Escriba aquí su comentario..."
+                                ></textarea>
+                            </div>
+
+                            <!-- BOTÓN DE ENVÍO -->
+                            <div class="pie-encuesta">
+
+                                <p>Las preguntas 1 a 6 son obligatorias.</p>
+
+                                <button type="submit" class="boton-registrar">
+                                    Enviar evaluación
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+
+                    <!-- RESULTADO DE LA EVALUACIÓN Y DIPLOMA -->
+                    <div id="resultadoEncuesta" hidden>
+
+                        <div class="tarjeta-resultado">
+
+                            <h2 id="mensajeResultado">Muy buena experiencia</h2>
+
+                            <div class="porcentaje-resultado">
+                                <strong id="porcentajeEncuesta">0%</strong>
+                            </div>
+
+                            <div class="barra-resultado">
+                                <div id="progresoEncuesta"></div>
+                            </div>
+
+                            <p id="descripcionResultado"></p>
+
+                            <div id="detallePuntuaciones" class="detalle-puntuaciones"></div>
+
+                            <p id="puntajeTotal"></p>
+
+                        </div>
+
+
+                        <!-- DIPLOMA -->
+                        <div id="diploma" class="diploma">
+
+                            <div class="diploma-contenido">
+
+                                <div class="diploma-medalla">🏅</div>
+
+                                <p>Estación Central de Bus Urbano</p>
+
+                                <h2>DIPLOMA DE APROBACIÓN</h2>
+
+                                <p>Se otorga el presente diploma a</p>
+
+                                <h3 id="nombreDiploma">Nombre del pasajero</h3>
+
+                                <p id="textoDiploma">
+                                    Por completar su viaje y aprobar la evaluación
+                                    de satisfacción del servicio.
+                                </p>
+
+                                <p id="fechaDiploma"></p>
+
+                                <div class="firmas-diploma">
+
+                                    <div>
+                                        <span>Administración de la Estación</span>
+                                    </div>
+
+                                    <div>
+                                        <span>Servicio al Viajero</span>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ACCIONES FINALES -->
+                        <div class="acciones-resultado">
+
+                            <button type="button" id="imprimirDiploma" class="boton-registrar">
+                                🖨 Imprimir diploma
+                            </button>
+
+                            <button type="button" id="responderEncuesta" class="boton-registrar">
+                                Responder de nuevo
+                            </button>
+
+                            <button type="button" id="volverInicio" class="boton-registrar">
+                                Volver al inicio
+                            </button>
+
+                        </div>
+                </div>
+            </div>
+        </section>
+
+        
+        <!-- VISTA ADMINISTRADOR -->
+        <section id="vista-administrador" class="vista">
+            <div class="contenedor-norm">
+                <h2 class="titulo-seccion">Panel de administrador</h2>
+                    <!-- ACCESO DE ADMINISTRADOR -->
+                    <div id="accesoAdministrador" class="contenedor-admin-acceso">
+
+                        <form id="formLoginAdmin" class="tarjeta-login-admin">
+
+                            <div class="campo-admin">
+                                <label for="usuarioAdmin">Usuario</label>
+                                <input
+                                    type="text"
+                                    id="usuarioAdmin"
+                                    placeholder="Ingrese su usuario"
+                                    required
+                                >
+                            </div>
+
+                            <div class="campo-admin">
+                                <label for="claveAdmin">Contraseña</label>
+                                <input
+                                    type="password"
+                                    id="claveAdmin"
+                                    placeholder="Ingrese su contraseña"
+                                    required
+                                >
+                            </div>
+
+                            <p id="errorLoginAdmin" class="error-admin" hidden>
+                                Usuario o contraseña incorrectos.
+                            </p>
+
+                            <button type="submit" class="boton-registrar">
+                                Ingresar
+                            </button>
+
+                        </form>
+
+                    </div>
+
+
+                    <!-- PANEL DE ADMINISTRACIÓN -->
+                    <div id="panelAdministrador" class="contenedor-admin" hidden>
+
+                        <div class="encabezado-admin">
+                            <h2 class="titulo-seccion">Panel de administración</h2>
+
+                            <div class="acciones-admin">
+
+                                <button type="button" id="exportarCSV" class="boton-admin">
+                                    ↓ Exportar CSV
+                                </button>
+
+                                <button type="button" id="verBaseDatos" class="boton-admin">
+                                    {} Ver base de datos
+                                </button>
+
+                                <button type="button" id="borrarDatos" class="boton-admin boton-eliminar">
+                                    Borrar datos
+                                </button>
+
+                                <button type="button" id="cerrarSesionAdmin" class="boton-registrar">
+                                    Cerrar sesión
+                                </button>
+
+                            </div>
+                        </div>
+
+
+                        <!-- TARJETAS DE ESTADÍSTICAS -->
+                        <div class="estadisticas-admin">
+
+                            <article class="tarjeta-estadistica">
+                                <h3 id="totalViajeros">0</h3>
+                                <p>Viajeros registrados</p>
+                            </article>
+
+                            <article class="tarjeta-estadistica">
+                                <h3 id="totalEncuestas">0</h3>
+                                <p>Encuestas recibidas</p>
+                            </article>
+
+                            <article class="tarjeta-estadistica">
+                                <h3 id="satisfaccionPromedio">0%</h3>
+                                <p>Satisfacción promedio</p>
+                            </article>
+
+                            <article class="tarjeta-estadistica">
+                                <h3 id="ingresosEstimados">Q0.00</h3>
+                                <p>Ingresos estimados</p>
+                            </article>
+
+                        </div>
+
+
+                        <!-- GRÁFICOS -->
+                        <div class="graficos-admin">
+
+                            <article class="tarjeta-admin">
+                                <h3>Viajeros por ruta</h3>
+                                <div id="graficoRutas"></div>
+                            </article>
+
+                            <article class="tarjeta-admin">
+                                <h3>Resultados de la encuesta</h3>
+                                <div id="graficoEncuestas"></div>
+                            </article>
+
+                        </div>
+
+
+                        <!-- TABLA DE VIAJEROS -->
+                        <div class="seccion-tabla-admin">
+
+                            <h3>Viajeros registrados</h3>
+
+                            <div class="tabla-envoltorio">
+                                <table class="tabla-admin">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Boleto</th>
+                                            <th>Viajero</th>
+                                            <th>Ruta</th>
+                                            <th>Fecha</th>
+                                            <th>Salida</th>
+                                            <th>Tarifa</th>
+                                            <th>Total</th>
+                                            <th>Acción</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody id="tablaViajerosAdmin"></tbody>
+
+                                </table>
+                            </div>
+
+                        </div>
+
+
+                        <!-- TABLA DE ENCUESTAS -->
+                        <div class="seccion-tabla-admin">
+
+                            <h3>Encuestas recibidas</h3>
+
+                            <div class="tabla-envoltorio">
+                                <table class="tabla-admin">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Fecha</th>
+                                            <th>Viajero</th>
+                                            <th>Satisfacción</th>
+                                            <th>Resultado</th>
+                                            <th>Comentario</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody id="tablaEncuestasAdmin"></tbody>
+
+                                </table>
+                            </div>
+
+                        </div>
+
+
+                        <!-- VISUALIZAR DATOS ALMACENADOS -->
+                        <div id="contenedorBaseDatos" class="seccion-base-datos" hidden>
+                            <h3>Datos almacenados en el navegador</h3>
+                            <pre id="contenidoBaseDatos"></pre>
+                        </div>
+
+                    </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 Jose Choc. Programación II · Universidad Mariano Gálvez de Guatemala · Ingeniería en Sistemas de Información</p>
+    </footer>
+
+
+    <script src="js/datos.js"></script>
+    <script src="js/almacenamiento.js"></script>
+    <script src="js/test2.js"></script>
+</body>
+</html>

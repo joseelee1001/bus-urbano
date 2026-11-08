@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 380" width="700" height="380" role="img" aria-label="Mapa esquemático de rutas desde Estación Central">
+  <rect width="700" height="380" rx="16" fill="#eef4fa"/>
+  <g stroke="#d3dfec" stroke-width="1">
+    <path d="M0 95H700M0 190H700M0 285H700M140 0V380M280 0V380M420 0V380M560 0V380"/>
+  </g>
+  <g font-family="Segoe UI, Arial, sans-serif" font-size="13" fill="#12355b" font-weight="600">
+    <!-- rutas -->
+    <path d="M350 190 L330 110 L300 50" stroke="#e4572e" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <path d="M350 190 L250 175 L120 150" stroke="#2e86ab" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <path d="M350 190 L320 260 L270 335" stroke="#3a9d5d" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <path d="M350 190 L430 215 L520 235" stroke="#9b5de5" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <path d="M350 190 L440 150 L560 120" stroke="#f4a261" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <path d="M350 190 L230 215 L90 270" stroke="#d62839" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <!-- destinos -->
+    <circle cx="300" cy="50" r="9" fill="#e4572e"/><text x="316" y="46">Plaza Norte</text>
+    <circle cx="120" cy="150" r="9" fill="#2e86ab"/><text x="60" y="134">Mixco</text>
+    <circle cx="270" cy="335" r="9" fill="#3a9d5d"/><text x="286" y="352">Villa Nueva</text>
+    <circle cx="520" cy="235" r="9" fill="#9b5de5"/><text x="534" y="258">Zona 10</text>
+    <circle cx="560" cy="120" r="9" fill="#f4a261"/><text x="470" y="104">Aeropuerto</text>
+    <circle cx="90" cy="270" r="9" fill="#d62839"/><text x="40" y="296">San Cristóbal</text>
+    <!-- estación -->
+    <circle cx="350" cy="190" r="17" fill="#12355b" stroke="#fff" stroke-width="4"/>
+    <text x="350" y="228" text-anchor="middle">Estación Central</text>
+  </g>
+</svg>
