@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;700&display=swap" rel="stylesheet">
     <link rel="preload" href="css/style.css" as="style">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=1.1">
     <link rel="icon" type="image" href="img/logo.svg">
     <title>Bus Urbano</title>
 
@@ -18,7 +18,7 @@
         <div class="contenedor">
             <!-- Logo y nombre -->
             <div class="logo">
-                <a href="#" id="volverInicio">
+                <a href="#" class="logo-enlace" id="volverInicioLogo">
                     <div class="logo-icono">🚌</div>
 
                     <div class="logo-texto">
@@ -26,6 +26,7 @@
                         <span>Transporte urbano</span>
                     </div>
                 </a>
+                
             </div>
             <!-- Botón para abrir/cerrar el menú móvil -->
             <button
@@ -241,6 +242,36 @@
                 </div>
             </div>
             
+        </section>
+        <section id="vista-normas" class="vista">
+            <div class="contenedor-norm">
+                <h2 class="titulo-seccion">Normas del viajero</h2>
+                <div class="contenedor-normas">
+
+                    
+
+                    <p>
+                        Para garantizar un servicio seguro y ordenado,
+                        todos los pasajeros deberán cumplir las siguientes normas:
+                    </p>
+
+                    <ol>
+                        <li>Respetar al conductor y a los demás pasajeros.</li>
+                        <li>Mantener limpia la unidad de transporte.</li>
+                        <li>No obstruir las puertas ni los pasillos.</li>
+                        <li>Respetar los horarios y las indicaciones del personal.</li>
+                        <li>Conservar el boleto durante el viaje.</li>
+                        <li>No transportar objetos peligrosos.</li>
+                    </ol>
+
+                    <button type="button" onclick="mostrarVista('registro')" class="boton-registrar">
+                        Volver al registro
+                    </button>
+
+                </div>
+            </div>
+            
+
         </section>
 
 
@@ -949,6 +980,7 @@
                     </div>
             </div>
         </section>
+        
 
     </main>
 
@@ -957,8 +989,8 @@
     </footer>
 
 
-    <script src="js/datos.js"></script>
-    <script src="js/almacenamiento.js"></script>
-    <script src="js/test2.js"></script>
+    <script src="js/datos.js?v=1.0"></script>
+    <script src="js/almacenamiento.js?v=1.0"></script>
+    <script src="js/test2.js?v=1.0"></script>
 </body>
 </html>

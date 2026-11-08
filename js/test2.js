@@ -1142,6 +1142,25 @@ if (botonVolverInicio) {
 
 }
 
+const botonVolverInicio2 = document.getElementById("volverInicioLogo");
+
+if (botonVolverInicio2) {
+
+    botonVolverInicio2.addEventListener("click", () => {
+        mostrarVista("inicio");
+    });
+
+}
+
+// Acceder a las normas desde el formulario de registro.
+const enlaceNormas = document.getElementById("enlaceNormas");
+
+if (enlaceNormas) {
+    enlaceNormas.addEventListener("click", evento => {
+        evento.preventDefault();
+        mostrarVista("normas");
+    });
+}
 
 /* =============================================
    PANEL DE ADMINISTRADOR
